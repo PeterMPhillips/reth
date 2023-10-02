@@ -54,7 +54,7 @@ pub use bytes::{Buf, BufMut, BytesMut};
 pub use chain::{
     AllGenesisFormats, BaseFeeParams, Chain, ChainInfo, ChainSpec, ChainSpecBuilder,
     DisplayHardforks, ForkCondition, ForkTimestamps, NamedChain, DEV, GOERLI, HOLESKY, MAINNET,
-    SEPOLIA,
+    SEPOLIA, GNOSIS
 };
 pub use compression::*;
 pub use constants::{
@@ -69,8 +69,8 @@ pub use header::{Head, Header, HeadersDirection, SealedHeader};
 pub use integer_list::IntegerList;
 pub use log::{logs_bloom, Log};
 pub use net::{
-    goerli_nodes, holesky_nodes, mainnet_nodes, sepolia_nodes, NodeRecord, GOERLI_BOOTNODES,
-    HOLESKY_BOOTNODES, MAINNET_BOOTNODES, SEPOLIA_BOOTNODES,
+    goerli_nodes, holesky_nodes, mainnet_nodes, sepolia_nodes, gnosis_nodes, NodeRecord, GOERLI_BOOTNODES,
+    HOLESKY_BOOTNODES, MAINNET_BOOTNODES, SEPOLIA_BOOTNODES, GNOSIS_BOOTNODES
 };
 pub use peer::{PeerId, WithPeerId};
 pub use prune::{

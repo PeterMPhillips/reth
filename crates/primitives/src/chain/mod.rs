@@ -1,6 +1,6 @@
 use crate::{
     holesky_nodes,
-    net::{goerli_nodes, mainnet_nodes, sepolia_nodes},
+    net::{goerli_nodes, mainnet_nodes, sepolia_nodes, gnosis_nodes},
     NodeRecord, U256, U64,
 };
 use alloy_rlp::{Decodable, Encodable};
@@ -14,7 +14,7 @@ use strum::{AsRefStr, EnumCount, EnumIter, EnumString, EnumVariantNames};
 mod spec;
 pub use spec::{
     AllGenesisFormats, BaseFeeParams, ChainSpec, ChainSpecBuilder, DisplayHardforks, ForkCondition,
-    ForkTimestamps, DEV, GOERLI, HOLESKY, MAINNET, SEPOLIA,
+    ForkTimestamps, DEV, GOERLI, HOLESKY, MAINNET, SEPOLIA, GNOSIS
 };
 
 // The chain info module.
@@ -51,6 +51,7 @@ pub enum NamedChain {
     Rinkeby = 4,
     Goerli = 5,
     Kovan = 42,
+    Gnosis = 100,
     Holesky = 17000,
     Sepolia = 11155111,
 
@@ -101,6 +102,11 @@ impl Chain {
         Chain::Named(NamedChain::Mainnet)
     }
 
+    /// Returns the gnosis chain.
+    pub const fn gnosis() -> Self {
+        Chain::Named(NamedChain::Gnosis)
+    }
+
     /// Returns the goerli chain.
     pub const fn goerli() -> Self {
         Chain::Named(NamedChain::Goerli)
@@ -149,6 +155,7 @@ impl Chain {
         use NamedChain as C;
         match self.try_into().ok()? {
             C::Mainnet => Some(mainnet_nodes()),
+            C::Gnosis => Some(gnosis_nodes()),
             C::Goerli => Some(goerli_nodes()),
             C::Sepolia => Some(sepolia_nodes()),
             C::Holesky => Some(holesky_nodes()),

@@ -70,6 +70,53 @@ pub static MAINNET: Lazy<Arc<ChainSpec>> = Lazy::new(|| {
     .into()
 });
 
+/// The Gnosis spec
+pub static GNOSIS: Lazy<Arc<ChainSpec>> = Lazy::new(|| {
+    ChainSpec {
+        chain: Chain::gnosis(),
+        genesis: serde_json::from_str(include_str!("../../res/genesis/gnosis.json"))
+            .expect("Can't deserialize Gnosis genesis json"),
+        genesis_hash: Some(b256!(
+            "4f1dd23188aab3a76b463e4af801b52b1248ef073c648cbdc4c9333d3da79756"
+        )),
+        // <https://gnosischa.in/block/6306357>
+        paris_block_and_final_difficulty: Some((6306357, "8626000000000000000000058750000000000000000000".parse().unwrap())),
+        fork_timestamps: ForkTimestamps::default().shanghai(1690889660),
+        hardforks: BTreeMap::from([
+            (Hardfork::Frontier, ForkCondition::Block(0)),
+            (Hardfork::Homestead, ForkCondition::Block(0)),
+            (Hardfork::Dao, ForkCondition::Block(0)),
+            (Hardfork::Tangerine, ForkCondition::Block(0)),
+            (Hardfork::SpuriousDragon, ForkCondition::Block(0)),
+            (Hardfork::Byzantium, ForkCondition::Block(0)),
+            (Hardfork::Constantinople, ForkCondition::Block(1604400)),
+            (Hardfork::Petersburg, ForkCondition::Block(2508800)),
+            (Hardfork::Istanbul, ForkCondition::Block(7298030)),
+            (Hardfork::Berlin, ForkCondition::Block(16101500)),
+            (Hardfork::London, ForkCondition::Block(19040000)),
+            (
+                Hardfork::Paris,
+                ForkCondition::TTD {
+                    fork_block: None,
+                    total_difficulty: "8626000000000000000000058750000000000000000000".parse().unwrap(),
+                },
+            ),
+            (Hardfork::Shanghai, ForkCondition::Timestamp(1690889660)),
+        ]),
+        // https://gnosis.blockscout.com/tx/0xdf2c22a1da1f6213504a97df248609764beb5ab1cb8977e7eac09f8ccc0500ff
+        deposit_contract: Some(DepositContract::new(
+            address!("0B98057eA310F4d31F2a452B414647007d1645d9"),
+            19469077,
+            b256!("649bbc62d0e31342afea4e5cd82d4049e7e1ee912fc0889aa790803be39038c5"),
+        )),
+        base_fee_params: BaseFeeParams::ethereum(),
+        prune_batch_sizes: PruneBatchSizes::mainnet(),
+        snapshot_block_interval: 500_000,
+    }
+    .into()
+});
+
+
 /// The Goerli spec
 pub static GOERLI: Lazy<Arc<ChainSpec>> = Lazy::new(|| {
     ChainSpec {

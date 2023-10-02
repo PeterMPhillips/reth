@@ -2,7 +2,7 @@
 
 use reth_primitives::{
     fs, AllGenesisFormats, BlockHashOrNumber, ChainSpec, B256, DEV, GOERLI, HOLESKY, MAINNET,
-    SEPOLIA,
+    SEPOLIA, GNOSIS
 };
 use std::{
     net::{IpAddr, Ipv4Addr, SocketAddr, ToSocketAddrs},
@@ -23,6 +23,7 @@ pub fn parse_duration_from_secs(arg: &str) -> eyre::Result<Duration, std::num::P
 pub fn chain_spec_value_parser(s: &str) -> eyre::Result<Arc<ChainSpec>, eyre::Error> {
     Ok(match s {
         "mainnet" => MAINNET.clone(),
+        "gnosis" => GNOSIS.clone(),
         "goerli" => GOERLI.clone(),
         "sepolia" => SEPOLIA.clone(),
         "holesky" => HOLESKY.clone(),
@@ -39,6 +40,7 @@ pub fn chain_spec_value_parser(s: &str) -> eyre::Result<Arc<ChainSpec>, eyre::Er
 pub fn genesis_value_parser(s: &str) -> eyre::Result<Arc<ChainSpec>, eyre::Error> {
     Ok(match s {
         "mainnet" => MAINNET.clone(),
+        "gnosis" => GNOSIS.clone(),
         "goerli" => GOERLI.clone(),
         "sepolia" => SEPOLIA.clone(),
         "holesky" => HOLESKY.clone(),
@@ -112,7 +114,7 @@ mod tests {
 
     #[test]
     fn parse_chain_spec() {
-        for chain in ["mainnet", "sepolia", "goerli", "holesky"] {
+        for chain in ["mainnet", "sepolia", "goerli", "holesky", "gnosis"] {
             chain_spec_value_parser(chain).unwrap();
             genesis_value_parser(chain).unwrap();
         }

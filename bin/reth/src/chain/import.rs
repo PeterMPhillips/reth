@@ -56,6 +56,7 @@ pub struct ImportCommand {
     /// - goerli
     /// - sepolia
     /// - holesky
+    /// - gnosis
     #[arg(
         long,
         value_name = "CHAIN_OR_PATH",

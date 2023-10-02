@@ -88,10 +88,10 @@ impl Consensus for BeaconConsensus {
                 })
             }
 
-            // Goerli exception:
-            //  * If the network is goerli pre-merge, ignore the extradata check, since we do not
-            //  support clique.
-            if self.chain_spec.chain != Chain::goerli() {
+            // Goerli & Gnosis exception:
+            //  * If the network is goerli/gnosis pre-merge, ignore the extradata check, since we do not
+            //  support clique/aura.
+            if self.chain_spec.chain != Chain::goerli() && self.chain_spec.chain != Chain::gnosis() {
                 validate_header_extradata(header)?;
             }
         }
